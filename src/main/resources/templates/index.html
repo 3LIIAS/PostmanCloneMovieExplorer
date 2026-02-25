@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Explorer Pro - API Client</title> <link rel="stylesheet" href="/style.css">
+</head>
+<body class="principal">
+<div class="contenedor">
+    <header class="cabecera">
+        <select id="metodo">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+        </select>
+        <input type="text" id="url" placeholder="https://api.themoviedb.org/3/movie/popular...">
+        <button id="enviar">Enviar</button>
+    </header>
+
+    <main class="cuerpo">
+        <nav class="pestanas">
+            <button onclick="ver('params')">Params</button>
+            <button onclick="ver('auth')">Auth</button>
+            <button onclick="ver('form')">Form</button>
+            <button onclick="ver('json')">JSON</button>
+        </nav>
+
+        <div id="params" class="seccion">
+            <div id="lista-params"></div>
+            <button onclick="fila('lista-params')">Añadir</button>
+        </div>
+
+        <div id="auth" class="seccion" style="display:none">
+            <input type="text" id="usuario" placeholder="Usuario">
+            <input type="password" id="clave" placeholder="Contraseña">
+            <input type="text" id="token" placeholder="API KEY">
+        </div>
+
+        <div id="form" class="seccion" style="display:none">
+            <div id="lista-form"></div>
+            <button onclick="fila('lista-form')">Añadir</button>
+        </div>
+
+        <div id="json" class="seccion" style="display:none">
+            <textarea id="entrada" placeholder='{"dato": "valor"}'></textarea>
+        </div>
+    </main>
+
+    <div class="historial-contenedor">
+        <strong>Historial de Consultas:</strong>
+        <ul id="lista-historial"></ul>
+    </div>
+
+    <footer class="pie">
+        <div class="info">
+            Estado: <span id="estado">-</span>
+        </div>
+        <textarea id="salida" readonly></textarea>
+    </footer>
+</div>
+<script src="/script.js"></script>
+</body>
+</html>
