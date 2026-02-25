@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Movie Explorer Pro - API Client</title> <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Movie Explorer Pro - API Client</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body class="principal">
 <div class="contenedor">
@@ -21,29 +24,38 @@
     <main class="cuerpo">
         <nav class="pestanas">
             <button onclick="ver('params')">Params</button>
-            <button onclick="ver('auth')">Auth</button>
-            <button onclick="ver('form')">Form</button>
-            <button onclick="ver('json')">JSON</button>
+            <button onclick="ver('auth')">Authentication</button>
+            <button onclick="ver('form')">Body - FormData</button>
+            <button onclick="ver('json')">Body - JSON</button>
         </nav>
 
         <div id="params" class="seccion">
+            <h4>Query Parameters (URL)</h4>
             <div id="lista-params"></div>
-            <button onclick="fila('lista-params')">Añadir</button>
+            <button class="btn-add" onclick="fila('lista-params')">+ Añadir Parámetro</button>
         </div>
 
         <div id="auth" class="seccion" style="display:none">
-            <input type="text" id="usuario" placeholder="Usuario">
-            <input type="password" id="clave" placeholder="Contraseña">
-            <input type="text" id="token" placeholder="API KEY">
+            <h4>Login ante la Aplicación</h4>
+            <div class="auth-inputs">
+                <input type="text" id="usuario" placeholder="Username">
+                <input type="password" id="clave" placeholder="Password">
+            </div>
+            <hr>
+            <h4>API Key (External Service)</h4>
+            <input type="password" id="token" placeholder="Escribe aqui tu APIKEY">
+            <p class="nota">* El username y password son obligatorios para validar la sesión local.</p>
         </div>
 
         <div id="form" class="seccion" style="display:none">
+            <h4>Form Data (Body)</h4>
             <div id="lista-form"></div>
-            <button onclick="fila('lista-form')">Añadir</button>
+            <button class="btn-add" onclick="fila('lista-form')">+ Añadir Campo</button>
         </div>
 
         <div id="json" class="seccion" style="display:none">
-            <textarea id="entrada" placeholder='{"dato": "valor"}'></textarea>
+            <h4>JSON Body</h4>
+            <textarea id="entrada" placeholder='{&#10;  "ejemplo": "valor"&#10;}'></textarea>
         </div>
     </main>
 
@@ -56,9 +68,10 @@
         <div class="info">
             Estado: <span id="estado">-</span>
         </div>
-        <textarea id="salida" readonly></textarea>
+        <textarea id="salida" placeholder="La respuesta de la API aparecerá aquí..." readonly></textarea>
     </footer>
 </div>
+
 <script src="/script.js"></script>
 </body>
 </html>

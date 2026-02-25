@@ -94,6 +94,34 @@ input, textarea {
     height: 250px;
 }
 
+
+.auth-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.nota {
+    font-size: 11px;
+    color: #888;
+    margin-top: 5px;
+}
+
+.btn-add {
+    margin-top: 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-add:hover {
+    background-color: #555;
+}
+
 /* RECUADRO DE LA FOTO: Solo visible si el JS crea la imagen (Status 200),hecho para que no se vea si el estado no es 200 */
 #foto-perrito {
     max-width: 250px;

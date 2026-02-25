@@ -28,10 +28,25 @@ async function actualizarHistorial() {
 }
 
 document.getElementById('enviar').onclick = async () => {
+    const usuario = document.getElementById('usuario').value;
+    const clave = document.getElementById('clave').value;
+
+    // VALIDACIÓN CON SWEETALERT2
+    if (!usuario || !clave) {
+        Swal.fire({
+            title: 'Acceso Denegado',
+            text: 'Por favor, introduce Usuario y Contraseña en la pestaña Auth.',
+            icon: 'warning',
+            confirmButtonColor: '#2eb67d',
+            background: '#1e1e1e',
+            color: '#fff'
+        });
+        ver('auth');
+        return;
+    }
 
     let urlBase = document.getElementById('url').value;
     const miApiKey = document.getElementById('token').value;
-
 
     if (miApiKey && !urlBase.includes('api_key')) {
         urlBase += (urlBase.includes('?') ? '&' : '?') + "api_key=" + miApiKey;
@@ -43,7 +58,6 @@ document.getElementById('enviar').onclick = async () => {
 
     salidaNodo.value = "Cargando...";
     estadoNodo.innerText = "-";
-
 
     fetch(`/guardar-historial?url=${encodeURIComponent(document.getElementById('url').value)}`, { method: 'POST' })
         .then(() => actualizarHistorial());
@@ -63,11 +77,24 @@ document.getElementById('enviar').onclick = async () => {
     }
 
     let opcionesFetch = { method: metodo };
+
     if (['POST', 'PUT', 'PATCH'].includes(metodo)) {
         const cuerpoJson = document.getElementById('entrada').value;
-        if (cuerpoJson) {
+
+        if (cuerpoJson.trim() !== "") {
             opcionesFetch.body = cuerpoJson;
             opcionesFetch.headers = { 'Content-Type': 'application/json' };
+        } else {
+            const formFilas = document.querySelectorAll('#lista-form .fila');
+            if (formFilas.length > 0) {
+                const formData = new FormData();
+                formFilas.forEach(f => {
+                    const k = f.querySelector('.clave-input').value;
+                    const v = f.querySelector('.valor-input').value;
+                    if (k) formData.append(k, v);
+                });
+                opcionesFetch.body = formData;
+            }
         }
     }
 
@@ -82,7 +109,7 @@ document.getElementById('enviar').onclick = async () => {
     } catch (error) {
         estadoNodo.innerText = "Error";
         estadoNodo.style.color = "red";
-        salidaNodo.value = "Error en la petición: " + error.message;
+        salidaNodo.value = "Error en la petición o JSON inválido: " + error.message;
     }
 };
 
